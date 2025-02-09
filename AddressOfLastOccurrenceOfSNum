@@ -16,12 +16,13 @@ struct node *delete_last_occurrence(struct node *head, int n);
 int main() 
 {
     struct node *head = NULL;
-    int choice, value, target;
+    int choice, value, target, count;
     
     // Interactive menu
-    do {
+    do 
+    {
         printf("\nMenu:\n");
-        printf("1. Add a node\n");
+        printf("1. Add nodes\n");
         printf("2. Print the list\n");
         printf("3. Find last occurrence of a value\n");
         printf("4. Delete last occurrence of a value\n");
@@ -32,13 +33,20 @@ int main()
         switch (choice) 
         {
             case 1:
-                printf("Enter value to add: ");
-                scanf("%d", &value);
-                head = insert_at_end(head, value);
+                printf("How many values would you like to add? ");
+                scanf("%d", &count);
+                for (int i = 0; i < count; i++) 
+                {
+                    printf("Enter value %d: ", i + 1);
+                    scanf("%d", &value);
+                    head = insert_at_end(head, value);
+                }
                 break;
+
             case 2:
                 print_list(head);
                 break;
+
             case 3:
                 printf("Enter value to find: ");
                 scanf("%d", &target);
@@ -52,14 +60,17 @@ int main()
                     printf("Value %d not found in the list.\n", target);
                 }
                 break;
+
             case 4:
                 printf("Enter value to delete last occurrence: ");
                 scanf("%d", &target);
                 head = delete_last_occurrence(head, target);
                 break;
+
             case 5:
                 printf("Exiting program...\n");
                 break;
+
             default:
                 printf("Invalid choice! Try again.\n");
         }
@@ -84,7 +95,10 @@ struct node *insert_at_end(struct node *head, int value)
     new_node->value = value;
     new_node->next = NULL;
 
-    if (!head) return new_node; // If list is empty, new node becomes the head
+    if (!head) 
+    {
+        return new_node; // If list is empty, new node becomes the head
+    }
 
     struct node *temp = head;
     while (temp->next) 
@@ -96,7 +110,8 @@ struct node *insert_at_end(struct node *head, int value)
 }
 
 // Function to print the linked list
-void print_list(struct node *head) {
+void print_list(struct node *head) 
+{
     if (!head) 
     {
         printf("List is empty.\n");
@@ -114,11 +129,14 @@ void print_list(struct node *head) {
 }
 
 // Function to find the last occurrence of a value in the list
-struct node *find_last(struct node *list, int n) {
+struct node *find_last(struct node *list, int n) 
+{
     struct node *result = NULL;
 
-    while (list) {
-        if (list->value == n) {
+    while (list) 
+    {
+        if (list->value == n) 
+        {
             result = list;
         }
         list = list->next;
